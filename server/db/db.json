@@ -103,6 +103,24 @@
             "available": true
           }
         ]
+      },
+      {
+        "name": "s3",
+        "dates": [
+          {
+            "date": "2022-05-28",
+            "available": true
+          }
+        ]
+      },
+      {
+        "name": "git",
+        "dates": [
+          {
+            "date": "2022-05-28",
+            "available": true
+          }
+        ]
       }
     ]
   },
