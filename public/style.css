@@ -145,11 +145,46 @@ td,th{
     display: none;
 }
 
-.edit ,.delete{
+.edit ,.delete,.add-Attendees{
     border-radius: 10px;
     padding: 10px;
     width: 100px;
     border: 1px solid black;
     background: transparent;
+    margin-bottom: 10px;
+}
+
+.delete{
+    margin-left: 50%;
+    transform: translateX(-100%);
+}
+
+.add-Attendees{
+    margin:20px 0 0 54%;
+    transform: translateX(-50%);
+}
+
+table button{
+    border-radius: 10px;
+    padding: 5px;
+    width: 100px;
+    border: 1px solid black;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background: transparent;
+    color: white;
+    border-right: 5px solid rgb(1, 48, 65);
+    
+}
+
+table input{
+    border: 1px solid black;
+    background: transparent;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 

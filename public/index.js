@@ -1,4 +1,6 @@
 
+
+
 let main =document.querySelector('main')
 let addEventOverlay=document.querySelector('.add-event-overlay')
 let editOverlay=document.querySelector('.edit-overlay')
@@ -23,7 +25,7 @@ function fetchApi(){
     .then(res=>res.json())
     .then(data=>{
      
-        findData(data)
+        displayAllEvents(data)
     })
 }
 fetchApi()
@@ -32,9 +34,11 @@ fetchApi()
 
 
 
-function findData(data){
+function displayAllEvents(data){
     
     for(let i =0;i<data.length;i++){
+
+//display author,name and description
         let sectionOfEvent=document.createElement('section')
         main.appendChild(sectionOfEvent)
 
@@ -55,6 +59,19 @@ function findData(data){
         let p =document.createElement('p')
         sectionOfEvent.appendChild(p)
         p.innerText=data[i].description
+
+        //create delete button
+        let dellete=document.createElement('button')
+        sectionOfEvent.appendChild(dellete)
+        dellete.innerText="delete"
+        dellete.className="delete"
+        //create edit button
+        let edit=document.createElement('button')
+        sectionOfEvent.appendChild(edit)
+        edit.innerText="edit"
+        edit.className="edit"
+
+
         //table
         let table=document.createElement('table')
         sectionOfEvent.appendChild(table)
@@ -63,7 +80,7 @@ function findData(data){
         let thname=document.createElement('th')
         trDate.appendChild(thname)
         thname.innerText=""
-        
+        // display dates
         let dates=data[i].dates
         for(let j=0;j<dates.length;j++){
             let thDate=document.createElement('th')
@@ -73,7 +90,7 @@ function findData(data){
             
             
             }
-        
+        //display attendees
         for(let n=0;n<data[i].dates[0].attendees.length;n++){
             
             let trMember =document.createElement('tr')
@@ -84,7 +101,7 @@ function findData(data){
 
              thMember.innerText=data[i].dates[0].attendees[n].name
            
-            
+            // display attendees avaibalities
              for (let m=0;m<data[i].dates.length;m++){
                 let tdD=document.createElement('td')
                 trMember.appendChild(tdD)
@@ -110,77 +127,99 @@ function findData(data){
 
 
 
-        let dellete=document.createElement('button')
-        sectionOfEvent.appendChild(dellete)
-        dellete.innerText="delete"
-        dellete.className="delete"
-
-        let edit=document.createElement('button')
-        sectionOfEvent.appendChild(edit)
-        edit.innerText="edit"
-        edit.className="edit"
-
+//create add attendes button
         let addButton=document.createElement('button')
         sectionOfEvent.appendChild(addButton)
         addButton.innerText="add-Attendees"
         addButton.className="add-Attendees"
-
-
+let newtr
+//add attendees button eventlistner
         addButton.addEventListener('click',()=>{
-            let newtr=document.createElement('tr')
+            //create new tr
+             newtr=document.createElement('tr')
             table.appendChild(newtr)
             let newth=document.createElement('th')
             newtr.appendChild(newth)
             let MemberInput=document.createElement('input')
+
             let addMember=document.createElement('button')
             addMember.innerText="add"
             newth.appendChild(addMember)
             newth.appendChild(MemberInput)
             MemberInput.placeholder="Name"
+            
               for(let x=0;x<data[i].dates.length;x++){
+
+            
+
 
                   let buttonTd=document.createElement("td")
                   newtr.appendChild(buttonTd)
                   let select=document.createElement('select')
-                  
+                  select.name=data[i].dates[x].date
+                  select.id=data[i].id
                   buttonTd.appendChild(select)
                  
                   let option1=document.createElement('option')
                   let option2=document.createElement('option')
                   let option3=document.createElement('option')
+
                   option1.text="null"
                   option1.value="null"
 
                   option2.text="false"
                   option2.value="false"
 
-
-                 
-                  
                   option3.text="true"
                   option3.value="true"
+
                   select.appendChild(option1)
                   select.appendChild(option3)
                   select.appendChild(option2)
-                console.log(new Boolean(select.value));
+               
                 
-                 
+            }
 
-                    function fetchPostMember(id){
-                       
+                    function fetchPostMember(e){
+                       const Allselect=newtr.querySelectorAll("select")
+                       let id
+                       let dates=[];
+                       for(const select of Allselect){
+                           const result = select
+                           console.log(result);
+                           const date=select.name
+                           id = select.id
+                           console.log(id);
+                           console.log(date);
+                         let value
+                         if(select.value==="true"){
+                             value=true
+                         }
+                         else if(select.value==="false"){
+                             value=false
+                         }
+                         if(select.value==="null"){
+                             value=null
+                         }
+                         let newobj={
+                             date:date,
+                             available:value
+                         }
 
+                         dates.push(newobj)
+                        
+                       }
+
+                   let attendName =newth.querySelector('input')
+                   
                         fetch('http://localhost:3000/api/events/'+id+'/attend',{
                             method:"POST",
-                            body:JSON.stringify({
-                                "name":MemberInput.value,
-                               "dates":[{"date":data[i].dates[x].date,
-                               "available":new Boolean(select.value),
-                            
-                            }]
-                            
 
-                                
-                    
+                            
+                            body:JSON.stringify({
+                                "name":attendName.value,
+                               "dates":dates
+                           
                             }),
                             headers: {
                                 "Content-type": "application/json; charset=UTF-8"
@@ -191,20 +230,19 @@ function findData(data){
                          console.log(data);
                             
                         })
-                    }
+                     }
 
                  
 
-                  addMember.addEventListener('click',(e)=>{
-                      
+                  addMember.addEventListener('click',()=>{
+                   
                           
-                          fetchPostMember(e.target.parentElement.parentElement.parentElement.parentElement.id)
+                          fetchPostMember()
                       
                   })
 
 
-
-              }
+              
         })
 
      
@@ -254,7 +292,7 @@ function fetchPost(){
     })
 }
 
-
+//delete
 function fetchDelete(id){
     fetch('http://localhost:3000/api/events/'+ id,{
         method:"delete",
@@ -277,7 +315,7 @@ document.addEventListener('click', function(e){
 
      }
      });
-
+//edit
      document.addEventListener('click', function(e){
         if(e.target && e.target.className== 'edit'){
             editOverlay.style.display='flex'
@@ -317,3 +355,5 @@ document.addEventListener('click', function(e){
                 
             })
         }
+
+        
