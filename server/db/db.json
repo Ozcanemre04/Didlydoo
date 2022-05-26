@@ -82,6 +82,90 @@
             "available": false
           }
         ]
+      },
+      {
+        "name": "zerr",
+        "dates": [
+          {
+            "date": "2022-05-25",
+            "available": true
+          },
+          {
+            "date": "2022-05-26",
+            "available": true
+          },
+          {
+            "date": "2022-05-27",
+            "available": false
+          },
+          {
+            "date": "2022-05-28",
+            "available": false
+          }
+        ]
+      },
+      {
+        "name": "sqqsq",
+        "dates": [
+          {
+            "date": "2022-05-25",
+            "available": false
+          },
+          {
+            "date": "2022-05-26",
+            "available": false
+          },
+          {
+            "date": "2022-05-27",
+            "available": false
+          },
+          {
+            "date": "2022-05-28",
+            "available": false
+          }
+        ]
+      },
+      {
+        "name": "qsq",
+        "dates": [
+          {
+            "date": "2022-05-25",
+            "available": false
+          },
+          {
+            "date": "2022-05-26",
+            "available": false
+          },
+          {
+            "date": "2022-05-27",
+            "available": false
+          },
+          {
+            "date": "2022-05-28",
+            "available": false
+          }
+        ]
+      },
+      {
+        "name": "sxx",
+        "dates": [
+          {
+            "date": "2022-05-25",
+            "available": false
+          },
+          {
+            "date": "2022-05-26",
+            "available": false
+          },
+          {
+            "date": "2022-05-27",
+            "available": false
+          },
+          {
+            "date": "2022-05-28",
+            "available": false
+          }
+        ]
       }
     ]
   },
