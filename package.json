@@ -12,5 +12,15 @@
     "joi": "^17.4.2",
     "lowdb": "^3.0.0",
     "nanoid": "^3.1.30"
+  },
+  
+  "source": "public/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+
+  "devDependencies": {
+    "parcel": "^2.6.0"
   }
 }
